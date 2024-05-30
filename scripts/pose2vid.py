@@ -69,7 +69,7 @@ def main():
         unet_additional_kwargs=infer_config.unet_additional_kwargs,
     ).to(dtype=weight_dtype, device="cuda")
 
-    pose_guider = PoseGuider(320, block_out_channels=(16, 32, 96, 256)).to(
+    pose_guider = PoseGuider(320).to(
         dtype=weight_dtype, device="cuda"
     )
 
