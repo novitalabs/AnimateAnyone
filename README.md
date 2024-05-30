@@ -7,10 +7,10 @@ This repository currently provides the unofficial pre-trained weights and infere
 ## Samples
 
 <table class="center">
-    <tr><td><video controls autoplay loop src="https://github.com/novitalabs/AnimateAnyone/assets/4327933/01e5e5b5-0735-4d6e-8efb-d4859e9d29d3">Demo 1</video></td></tr>
-    <tr><td><video controls autoplay loop src="https://github.com/novitalabs/AnimateAnyone/assets/4327933/9f535975-1aff-4ed9-a584-64e40c7b3f80">Demo 2</video></td></tr>
-    <tr><td><video controls autoplay loop src="https://github.com/novitalabs/AnimateAnyone/assets/4327933/158baada-d092-4a7b-9c4a-3263d983aace">Demo 3</video></td></tr>
-    <tr><td><video controls autoplay loop src="https://github.com/novitalabs/AnimateAnyone/assets/4327933/e0ba3d49-babf-45dd-be63-e637e2c50bcb">Demo 4</video></td></tr>
+    <tr><td><video controls autoplay loop src="https://github.com/novitalabs/AnimateAnyone/assets/4327933/49d9c98c-a3bb-4cfc-b1ce-c0e85731e7f8">Demo 1</video></td></tr>
+    <tr><td><video controls autoplay loop src="https://github.com/novitalabs/AnimateAnyone/assets/4327933/cd58d1e8-95d8-46e2-8b34-ba004067c6c9">Demo 2</video></td></tr>
+    <tr><td><video controls autoplay loop src="https://github.com/novitalabs/AnimateAnyone/assets/4327933/1f07f5e7-073e-4d02-872b-da63e2a97c1b">Demo 3</video></td></tr>
+    <tr><td><video controls autoplay loop src="https://github.com/novitalabs/AnimateAnyone/assets/4327933/3e492adf-9d07-493d-b3c9-65db47713bf3">Demo 4</video></td></tr>
 </table>
 
 ## Quickstart
