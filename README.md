@@ -55,7 +55,7 @@ python tools/vid2pose.py --video_path /path/to/your/video.mp4
 
 ## Or try it on Novita AI
 
-We've deployed this model on Novita AI, and you can try it out with Playground ➡️ https://novita.ai/model/playground#animate-anyone .
+We've deployed this model on Novita AI, and you can try it out with Playground ➡️ https://novita.ai/playground#animate-anyone .
 
 ## Acknowledgements
 
