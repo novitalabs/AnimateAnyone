@@ -1,0 +1,9 @@
+# project
+pretrained_weights/
+*.local
+*.local.*
+output/
+*.pyc
+
+# OS General
+.DS_Store

@@ -1,0 +1,5 @@
+*.jpg
+*.png
+
+!ref_images/anyone-*
+!pose_images/pose-*
