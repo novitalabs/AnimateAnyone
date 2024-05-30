@@ -1,5 +1,7 @@
 # Animate Anyone
 
+[![Novita AI](https://github.com/novitalabs/AnimateAnyone/assets/4327933/2a6ef880-e5c3-437e-adc5-2ae8601ac4f8)](https://novita.ai)
+
 ## Overview
 
 This repository currently provides the unofficial pre-trained weights and inference code of [Animate Anyone](https://humanaigc.github.io/animate-anyone). It is inspired by the implementation of the [MooreThreads/Moore-AnimateAnyone](https://github.com/MooreThreads/Moore-AnimateAnyone) repository and we made some adjustments to the training process and datasets.
