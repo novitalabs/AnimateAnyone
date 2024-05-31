@@ -24,8 +24,7 @@ from transformers import CLIPImageProcessor
 
 from ..models.mutual_self_attention import ReferenceAttentionControl
 from .context import get_context_scheduler
-from .utils import get_tensor_interpolation_method
-from ..dataset.utils import SquarePad
+from .utils import get_tensor_interpolation_method, SquarePad
 
 
 @dataclass
