@@ -16,14 +16,11 @@ from PIL import Image
 from torchvision import transforms
 from transformers import CLIPVisionModelWithProjection
 
-from configs.prompts.test_cases import TestCasesDict
 from src.models.pose_guider import PoseGuider
 from src.models.unet_2d_condition import UNet2DConditionModel
 from src.models.unet_3d import UNet3DConditionModel
 from src.pipelines.pipeline_pose2vid_long import Pose2VideoPipeline
 from src.utils.util import get_fps, read_frames, save_videos_grid
-
-from consistencydecoder import ConsistencyDecoder
 
 
 def parse_args():
@@ -96,17 +93,6 @@ def main():
         torch.load(config.pose_guider_path, map_location="cpu"),
     )
 
-    ru_p0 = next(iter(reference_unet.parameters()))
-    print('ru_p0:', ru_p0.shape, ru_p0.mean(), ru_p0.std())
-
-    du_p0 = next(iter(denoising_unet.parameters()))
-    #print('du_p0:', du_p0.shape, du_p0)
-
-    pg_p0 = next(iter(pose_guider.parameters()))
-    #print('pg_p0:', pg_p0.shape, pg_p0)
-
-    #decoder_consistency = ConsistencyDecoder(device="cuda:0")
-
     pipe = Pose2VideoPipeline(
         vae=vae,
         image_encoder=image_enc,
@@ -167,8 +153,6 @@ def main():
                 args.steps,
                 args.cfg,
                 generator=generator,
-                # decoder_consistency has some negative effects (such as a blue blob)
-                #decoder_consistency=decoder_consistency
             ).videos
 
             video = torch.cat([ref_image_tensor, pose_tensor, video], dim=0)
