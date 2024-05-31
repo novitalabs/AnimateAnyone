@@ -72,7 +72,6 @@ class Pose2VideoPipeline(DiffusionPipeline):
         self.ref_image_processor = VaeImageProcessor(
             vae_scale_factor=self.vae_scale_factor, do_convert_rgb=True
         )
-        print('vae_scale_factor:', self.vae_scale_factor)
         self.cond_image_processor = VaeImageProcessor(
             vae_scale_factor=self.vae_scale_factor,
             do_convert_rgb=True,
@@ -412,7 +411,6 @@ class Pose2VideoPipeline(DiffusionPipeline):
             device,
             generator,
         )
-        print('latents:', latents[:, :1, :1, :4, :4])
 
         # Prepare extra step kwargs.
         extra_step_kwargs = self.prepare_extra_step_kwargs(generator, eta)
@@ -426,8 +424,6 @@ class Pose2VideoPipeline(DiffusionPipeline):
         )
         ref_image_latents = self.vae.encode(ref_image_tensor).latent_dist.mean
         ref_image_latents = ref_image_latents * 0.18215  # (b, 4, h, w)
-        print('ref_image_tensor:', ref_image_tensor[:, :1, :4, :4])
-        print('ref_image_latents:', ref_image_latents[:, :1, :4, :4], ref_image_latents.mean(), ref_image_latents.std())
 
         # Prepare a list of pose condition images
         pose_cond_tensor_list = []
@@ -436,8 +432,6 @@ class Pose2VideoPipeline(DiffusionPipeline):
             pose_cond_tensor = self.cond_image_processor.preprocess(
                 pose_image, height=height, width=width
             )
-            print('pose_cond_tensor.i:', pose_cond_tensor.shape, pose_cond_tensor.mean())
-            raise 'interrupt'
             pose_cond_tensor = pose_cond_tensor.unsqueeze(2)  # (bs, c, 1, h, w)
             pose_cond_tensor_list.append(pose_cond_tensor)
         pose_cond_tensor = torch.cat(pose_cond_tensor_list, dim=2)  # (bs, c, t, h, w)
@@ -445,8 +439,6 @@ class Pose2VideoPipeline(DiffusionPipeline):
             device=device, dtype=self.pose_guider.dtype
         )
         pose_fea = self.pose_guider(pose_cond_tensor)
-        print('pose_cond_tensor:', pose_cond_tensor[:, :1, :1, :4, :4], pose_cond_tensor.mean())
-        print('pose_fea:', pose_fea[:, :1, :1, :4, :4], pose_fea.mean())
 
         context_scheduler = get_context_scheduler(context_schedule)
 
@@ -485,7 +477,6 @@ class Pose2VideoPipeline(DiffusionPipeline):
 
                 # 1. Forward reference image
                 if i == 0:
-                    print('encoder_hidden_states:', encoder_hidden_states.mean(), encoder_hidden_states.std())
                     self.reference_unet(
                         ref_image_latents.repeat(
                             (2 if do_classifier_free_guidance else 1), 1, 1, 1
@@ -543,12 +534,6 @@ class Pose2VideoPipeline(DiffusionPipeline):
                     latent_pose_input = torch.cat(
                         [pose_fea[:, :, c] for c in context]
                     ).repeat(2 if do_classifier_free_guidance else 1, 1, 1, 1, 1)
-                    print('latent_model_input:', latent_model_input.shape, latent_model_input[:, :1, :1, :4, :4], latent_model_input.mean(), latent_model_input.std())
-                    # latent_model_input has tiny difference!?
-                    print('latent_pose_input:', latent_pose_input.shape, latent_pose_input[:, :1, :1, :4, :4], latent_pose_input.mean(), latent_pose_input.std())
-                    print('latent_pose_input.c:', latent_pose_input.mean(dim=(0, 2, 3, 4)))
-                    print('encoder_hidden_states:', encoder_hidden_states.shape, encoder_hidden_states[:, :1, :4], encoder_hidden_states.mean(), encoder_hidden_states.std())
-                    print('t:', t)
 
                     pred = self.denoising_unet(
                         latent_model_input,
@@ -557,7 +542,6 @@ class Pose2VideoPipeline(DiffusionPipeline):
                         pose_cond_fea=latent_pose_input,
                         return_dict=False,
                     )[0]
-                    print('pred:', t, pred.shape, pred[:, :1, :1, :4, :4])
 
                     for j, c in enumerate(context):
                         noise_pred[:, :, c] = noise_pred[:, :, c] + pred

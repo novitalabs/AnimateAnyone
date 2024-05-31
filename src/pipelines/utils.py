@@ -1,4 +1,6 @@
 import torch
+import torch.nn.functional as F
+from transformers.image_utils import to_numpy_array
 
 tensor_interpolation = None
 
