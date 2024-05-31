@@ -428,7 +428,6 @@ class Pose2VideoPipeline(DiffusionPipeline):
         # Prepare a list of pose condition images
         pose_cond_tensor_list = []
         for pose_image in pose_images:
-            pose_image.save('pose.0.png')
             pose_cond_tensor = self.cond_image_processor.preprocess(
                 pose_image, height=height, width=width
             )
