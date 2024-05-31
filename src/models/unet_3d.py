@@ -479,12 +479,9 @@ class UNet3DConditionModel(ModelMixin, ConfigMixin):
             emb = emb + class_emb
 
         # pre-process
-        print('sample.1:', sample.mean(), sample.std())
         sample = self.conv_in(sample)
-        print('sample.2:', sample.mean(), sample.std())
         if pose_cond_fea is not None:
             sample = sample + pose_cond_fea
-        print('sample.3:', sample.mean(), sample.std())
 
         # down
         down_block_res_samples = (sample,)

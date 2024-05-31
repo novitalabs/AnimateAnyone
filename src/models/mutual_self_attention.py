@@ -101,7 +101,6 @@ class ReferenceAttentionControl:
             class_labels: Optional[torch.LongTensor] = None,
             video_length=None,
         ):
-            print('hacked_basic_transformer_inner_forward.hidden_states:', hidden_states.shape, hidden_states.mean(), hidden_states.std())
             if self.use_ada_layer_norm:  # False
                 norm_hidden_states = self.norm1(hidden_states, timestep)
             elif self.use_ada_layer_norm_zero:
@@ -136,7 +135,6 @@ class ReferenceAttentionControl:
                 )
             else:
                 if MODE == "write":
-                    #print('write.norm_hidden_states:', norm_hidden_states.shape, norm_hidden_states.mean(), norm_hidden_states.std())
                     self.bank.append(norm_hidden_states.clone())
                     attn_output = self.attn1(
                         norm_hidden_states,
@@ -154,7 +152,6 @@ class ReferenceAttentionControl:
                         )
                         for d in self.bank
                     ]
-                    print('bank_fea:', bank_fea[0].shape, bank_fea[0].mean())
                     modify_norm_hidden_states = torch.cat(
                         [norm_hidden_states] + bank_fea, dim=1
                     )
@@ -166,10 +163,6 @@ class ReferenceAttentionControl:
                         )
                         + hidden_states
                     )
-                    print('norm_hidden_states:', norm_hidden_states.shape, hidden_states_uc.mean())
-                    print('modify_norm_hidden_states:', modify_norm_hidden_states.shape, hidden_states_uc.mean())
-                    #print('attention_mask:', attention_mask.shape)
-                    print('hidden_states_uc:', hidden_states_uc.shape, hidden_states_uc.mean())
                     if do_classifier_free_guidance:
                         hidden_states_c = hidden_states_uc.clone()
                         _uc_mask = uc_mask.clone()
@@ -231,8 +224,6 @@ class ReferenceAttentionControl:
                         hidden_states = rearrange(
                             hidden_states, "(b d) f c -> (b f) d c", d=d
                         )
-                    print('hidden_states:', hidden_states.shape, hidden_states.mean())
-                    raise 'interrupt'
 
                     return hidden_states
 
