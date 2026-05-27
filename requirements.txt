@@ -25,5 +25,5 @@ torchsde==0.2.5
 torchvision==0.15.2
 tqdm==4.66.1
 transformers==4.30.2
-mlflow==2.9.2
+mlflow==3.11.1
 xformers==0.0.22
